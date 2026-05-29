@@ -80,12 +80,13 @@ export default async function ProductPage(props: {
           __html: JSON.stringify(productJsonLd),
         }}
       />
-      <div className="mx-auto max-w-(--breakpoint-2xl) px-4">
-        <div className="flex flex-col rounded-lg border border-neutral-200 bg-white p-8 md:p-12 lg:flex-row lg:gap-8 dark:border-neutral-800 dark:bg-black">
+      <div className="mx-auto max-w-(--breakpoint-2xl) px-4 py-8 md:py-12">
+        <div className="flex flex-col rounded-2xl border border-neutral-100 bg-white shadow-sm lg:flex-row lg:gap-12 lg:p-12">
+          {/* Gallery */}
           <div className="h-full w-full basis-full lg:basis-4/6">
             <Suspense
               fallback={
-                <div className="relative aspect-square h-full max-h-[550px] w-full overflow-hidden" />
+                <div className="relative aspect-square h-full max-h-[550px] w-full overflow-hidden rounded-xl bg-neutral-50" />
               }
             >
               <Gallery
@@ -97,12 +98,14 @@ export default async function ProductPage(props: {
             </Suspense>
           </div>
 
-          <div className="basis-full lg:basis-2/6">
+          {/* Product info */}
+          <div className="basis-full border-t border-neutral-100 p-6 lg:basis-2/6 lg:border-l lg:border-t-0 lg:pl-10 lg:pt-0">
             <Suspense fallback={null}>
               <ProductDescription product={product} />
             </Suspense>
           </div>
         </div>
+
         <RelatedProducts id={product.id} />
       </div>
       <Footer />
@@ -116,8 +119,13 @@ async function RelatedProducts({ id }: { id: string }) {
   if (!relatedProducts.length) return null;
 
   return (
-    <div className="py-8">
-      <h2 className="mb-4 text-2xl font-bold">Related Products</h2>
+    <div className="py-12">
+      <div className="mb-6">
+        <span className="mb-3 inline-block h-px w-8 bg-cyan align-middle" />
+        <h2 className="font-heading text-2xl font-bold tracking-tight text-ink">
+          Related Products
+        </h2>
+      </div>
       <ul className="flex w-full gap-4 overflow-x-auto pt-1">
         {relatedProducts.map((product) => (
           <li

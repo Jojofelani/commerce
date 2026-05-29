@@ -3,6 +3,18 @@
 @plugin "@tailwindcss/container-queries";
 @plugin "@tailwindcss/typography";
 
+/* ─── Brand tokens ─────────────────────────────────────────────── */
+@theme {
+  --color-navy: #15296e;
+  --color-cyan:  #29abe2;
+  --color-ink:   #0e1116;
+  --color-fog:   #f5f8fc;
+
+  --font-family-sans:    var(--font-dm-sans), ui-sans-serif, system-ui, sans-serif;
+  --font-family-heading: var(--font-syne),    ui-sans-serif, system-ui, sans-serif;
+}
+
+/* ─── Base ─────────────────────────────────────────────────────── */
 @layer base {
   *,
   ::after,
@@ -11,22 +23,71 @@
   ::file-selector-button {
     border-color: var(--color-gray-200, currentColor);
   }
-}
 
-@media (prefers-color-scheme: dark) {
-  html {
-    color-scheme: dark;
+  ::selection {
+    background-color: var(--color-cyan);
+    color: #fff;
   }
 }
 
+/* ─── Safari lazy-load fix ─────────────────────────────────────── */
 @supports (font: -apple-system-body) and (-webkit-appearance: none) {
   img[loading="lazy"] {
     clip-path: inset(0.6px);
   }
 }
 
+/* ─── Focus rings ───────────────────────────────────────────────── */
 a,
 input,
 button {
-  @apply focus-visible:outline-hidden focus-visible:ring-2 focus-visible:ring-neutral-400 focus-visible:ring-offset-2 focus-visible:ring-offset-neutral-50 dark:focus-visible:ring-neutral-600 dark:focus-visible:ring-offset-neutral-900;
+  @apply focus-visible:outline-hidden focus-visible:ring-2 focus-visible:ring-cyan focus-visible:ring-offset-2 focus-visible:ring-offset-white;
+}
+
+/* ─── Keyframes ─────────────────────────────────────────────────── */
+@keyframes fade-up {
+  from {
+    opacity: 0;
+    transform: translateY(20px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+@keyframes carousel {
+  0%   { transform: translateX(0); }
+  100% { transform: translateX(-50%); }
+}
+
+@keyframes blink {
+  0%, 100% { opacity: 1; }
+  50%       { opacity: 0.2; }
+}
+
+@keyframes marquee {
+  from { transform: translateX(0); }
+  to   { transform: translateX(-50%); }
+}
+
+/* ─── Custom utilities ──────────────────────────────────────────── */
+@utility animate-fade-up {
+  animation: fade-up 0.6s ease both;
+}
+
+@utility animate-fade-up-delay-1 {
+  animation: fade-up 0.6s ease 0.15s both;
+}
+
+@utility animate-fade-up-delay-2 {
+  animation: fade-up 0.6s ease 0.3s both;
+}
+
+@utility animate-carousel {
+  animation: carousel 30s linear infinite;
+}
+
+@utility animate-blink {
+  animation: blink 1.4s ease infinite;
 }

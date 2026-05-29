@@ -14,7 +14,14 @@ export async function Carousel() {
   const carouselProducts = [...products, ...products, ...products];
 
   return (
-    <div className="w-full overflow-x-auto pb-6 pt-1">
+    <div className="w-full">
+      <div className="px-4 pb-6 pt-16">
+        <span className="mb-3 inline-block h-px w-8 bg-cyan align-middle" />
+        <h2 className="font-heading text-2xl font-bold tracking-tight text-ink md:text-3xl">
+          More Products
+        </h2>
+      </div>
+      <div className="overflow-x-auto pb-6 pt-1">
       <ul className="flex animate-carousel gap-4">
         {carouselProducts.map((product, i) => (
           <li
@@ -40,6 +47,7 @@ export async function Carousel() {
           </li>
         ))}
       </ul>
+      </div>
     </div>
   );
 }
